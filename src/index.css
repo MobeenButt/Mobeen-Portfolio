@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark theme is the default (also set on <html> by index.html). */
+    --bg: #0a0a12;
+    --bg-soft: #0e0e1a;
+    --text: #f5f5f7;
+    --text-muted: #a1a1aa;
+    --text-faint: #71717a;
+    --surface: rgba(255, 255, 255, 0.045);
+    --surface-strong: rgba(255, 255, 255, 0.07);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.14);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.55);
+
+    /* Aurora triad — identical brand gradient in both themes. */
+    --aurora-1: #2dd4bf;
+    --aurora-2: #8b5cf6;
+    --aurora-3: #ec4899;
+    --aurora-opacity: 0.55;
+
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    color-scheme: dark;
+  }
+
+  :root[data-theme='light'] {
+    --bg: #f7f8fc;
+    --bg-soft: #ffffff;
+    --text: #18181b;
+    --text-muted: #52525b;
+    --text-faint: #a1a1aa;
+    --surface: rgba(255, 255, 255, 0.6);
+    --surface-strong: rgba(255, 255, 255, 0.82);
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --shadow-color: rgba(20, 20, 50, 0.14);
+    --aurora-opacity: 0.3;
+
+    color-scheme: light;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto; /* Lenis handles smooth scrolling */
+  }
+
+  body {
+    margin: 0;
+    min-height: 100svh;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--aurora-2) 35%, transparent);
+    color: var(--text);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); background-clip: padding-box; }
+
+  :focus-visible {
+    outline: 2px solid var(--aurora-2);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Smooth crossfade when switching themes (briefly enabled by ThemeProvider). */
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 0.45s ease,
+      border-color 0.45s ease,
+      color 0.45s ease,
+      fill 0.45s ease,
+      stroke 0.45s ease,
+      box-shadow 0.45s ease,
+      outline-color 0.45s ease !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Glassmorphism surface */
+  .glass {
+    background-color: var(--surface);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border);
+  }
+  .glass-strong {
+    background-color: var(--surface-strong);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Animated gradient border wrapper */
+  .border-gradient {
+    position: relative;
+    border-radius: inherit;
+    isolation: isolate;
+  }
+  .border-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--bg-aurora-gradient, linear-gradient(135deg, var(--aurora-1), var(--aurora-2), var(--aurora-3)));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  .border-gradient:hover::before { opacity: 1; }
+}
+
+@layer utilities {
+  .text-gradient {
+    background-image: linear-gradient(135deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-animated {
+    background-image: linear-gradient(120deg, var(--aurora-1), var(--aurora-2), var(--aurora-3), var(--aurora-1));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 8s ease infinite;
+  }
+
+  .bg-aurora-text-gradient {
+    background-image: linear-gradient(135deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+  }
+
+  /* Fade the edges of a horizontal marquee */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+  .mask-fade-y {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  }
+
+  /* Hide the native cursor only where the custom cursor is active */
+  .cursor-none-important,
+  .cursor-none-important * {
+    cursor: none !important;
+  }
+
+  /* Custom-cursor helper: hides the native cursor but preserves the text caret. */
+  @media (pointer: fine) {
+    html.cursor-hidden,
+    html.cursor-hidden * {
+      cursor: none !important;
+    }
+    html.cursor-hidden input,
+    html.cursor-hidden textarea,
+    html.cursor-hidden [contenteditable='true'] {
+      cursor: text !important;
+    }
+  }
+
+  /* cmdk command palette */
+  [cmdk-group-heading] {
+    padding: 0.625rem 0.75rem 0.25rem;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+  }
+  [cmdk-item] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  [cmdk-item][data-selected='true'] {
+    background: var(--surface-strong);
+  }
+}

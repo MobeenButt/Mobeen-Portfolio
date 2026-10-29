@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" class="dark" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Primary meta tags -->
+    <title>Mobeen Butt — Software Engineer</title>
+    <meta name="title" content="Mobeen Butt — Software Engineer" />
+    <meta
+      name="description"
+      content="Mobeen Butt is a software engineer building fast, accessible, and delightful web experiences with React, TypeScript, and modern tooling."
+    />
+    <meta name="author" content="Mobeen Butt" />
+    <meta name="theme-color" content="#0a0a12" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mobeen Butt — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software engineer building fast, accessible, and delightful web experiences with React, TypeScript, and modern tooling."
+    />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta property="og:url" content="https://mobeenbutt.dev" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mobeen Butt — Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="Software engineer building fast, accessible, and delightful web experiences with React, TypeScript, and modern tooling."
+    />
+    <meta name="twitter:image" content="/og-image.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- No-flash theme: set the saved/system theme before paint -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var theme =
+            stored ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light');
+          var root = document.documentElement;
+          root.classList.toggle('dark', theme === 'dark');
+          root.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Person schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mobeen Butt",
+        "jobTitle": "Software Engineer",
+        "url": "https://mobeenbutt.dev",
+        "email": "mailto:mobeen@example.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Lahore", "addressCountry": "PK" },
+        "sameAs": [
+          "https://github.com/mobeenbutt",
+          "https://www.linkedin.com/in/mobeenbutt",
+          "https://x.com/mobeenbutt"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

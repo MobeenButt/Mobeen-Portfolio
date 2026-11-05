@@ -79,10 +79,10 @@ export function About() {
                 <Sparkles size={16} className="text-aurora-2" />
                 Currently building
               </div>
-              <div className="mt-1.5 font-semibold">{profile.currentlyBuilding.title}</div>
-              <p className="mt-1 text-sm text-muted-foreground">
+              {/* <div className="mt-1.5 font-semibold">{profile.currentlyBuilding.title}</div> */}
+              {/* <p className="mt-1 text-sm text-muted-foreground">
                 {profile.currentlyBuilding.description}
-              </p>
+              </p> */}
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">

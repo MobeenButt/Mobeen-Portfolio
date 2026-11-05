@@ -30,11 +30,11 @@ export interface Profile {
   resumeUrl: string
   available: boolean
   bio: string[]
-  currentlyBuilding: {
-    title: string
-    description: string
-    url?: string
-  }
+  // currentlyBuilding: {
+  //   title: string
+  //   description: string
+  //   url?: string
+  // }
   socials: Social[]
 }
 

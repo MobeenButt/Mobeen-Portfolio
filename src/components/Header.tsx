@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Command, Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Code2, Command, Menu, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 import { navItems, profile } from '@/content'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { scrollToSection, scrollToTop } from '@/lib/smooth-scroll'
@@ -16,14 +16,27 @@ function openPalette() {
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const ids = navItems.map((i) => i.id)
+  const ids = useMemo(() => navItems.map((i) => i.id), [])
   const active = useScrollSpy(ids)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    let frame = 0
+    const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        setScrolled((current) => {
+          const next = window.scrollY > 24
+          return current === next ? current : next
+        })
+        frame = 0
+      })
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+    }
   }, [])
 
   const go = (id: string) => {
@@ -45,19 +58,25 @@ export function Header() {
             scrolled ? 'glass-strong py-2 shadow-card' : 'py-2',
           )}
         >
-          {/* Logo */}
+          {/* Brand navigation */}
           <Magnetic strength={0.25}>
             <button
               type="button"
               onClick={scrollToTop}
-              className="group flex items-center gap-2.5"
+              className="group flex items-center gap-3 rounded-2xl py-1 pr-3 transition-colors hover:bg-card"
               aria-label="Back to top"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-aurora-gradient text-sm font-bold text-white shadow-glow-sm transition-transform duration-300 group-hover:scale-105">
-                {profile.initials}
+              <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-xl bg-aurora-gradient text-white shadow-glow-sm transition-transform duration-300 group-hover:scale-105">
+                <span className="absolute inset-[2px] rounded-[10px] border border-white/35 bg-black/20" />
+                <Code2 size={21} strokeWidth={2.25} className="relative" aria-hidden />
               </span>
-              <span className="hidden font-display text-sm font-semibold sm:inline">
-                {profile.name}
+              <span className="hidden text-left sm:block">
+                <span className="block font-display text-sm font-semibold leading-tight">
+                  {profile.name}
+                </span>
+                <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.18em] text-faint-foreground">
+                  {profile.role}
+                </span>
               </span>
             </button>
           </Magnetic>

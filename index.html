@@ -14,7 +14,7 @@
       content="Mobeen Butt is a software engineer building fast, accessible, and delightful web experiences with React, TypeScript, and modern tooling."
     />
     <meta name="author" content="Mobeen Butt" />
-    <meta name="theme-color" content="#0a0a12" />
+    <meta name="theme-color" content="#030305" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -50,9 +50,7 @@
           var stored = localStorage.getItem('theme');
           var theme =
             stored ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light');
+            'dark';
           var root = document.documentElement;
           root.classList.toggle('dark', theme === 'dark');
           root.setAttribute('data-theme', theme);

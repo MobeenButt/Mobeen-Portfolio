@@ -5,20 +5,29 @@ export function useScrollSpy(ids: string[], offset = 120): string {
   const [active, setActive] = useState(ids[0] ?? '')
 
   useEffect(() => {
-    const onScroll = () => {
-      const scrollPos = window.scrollY + offset
-      let current = ids[0] ?? ''
-      for (const id of ids) {
-        const el = document.getElementById(id)
-        if (!el) continue
-        const top = el.getBoundingClientRect().top + window.scrollY
-        if (top <= scrollPos) current = id
-      }
-      setActive((prev) => (prev === current ? prev : current))
-    }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    if (!ids.length) return
+
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null)
+    if (!sections.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+        const current = visible[0]?.target.id
+        if (current) setActive((prev) => (prev === current ? prev : current))
+      },
+      {
+        rootMargin: `-${offset}px 0px -55% 0px`,
+        threshold: [0, 0.1],
+      },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
   }, [ids, offset])
 
   return active

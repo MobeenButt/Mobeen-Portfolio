@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Download, Sparkles } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { useRef } from 'react'
 import { marqueeSkills, profile } from '@/content'
 import { usePrefersReducedMotion } from '@/hooks/use-prefers-reduced-motion'
@@ -72,18 +72,6 @@ export function About() {
                 {paragraph}
               </p>
             ))}
-
-            {/* Currently building */}
-            <div className="rounded-2xl glass border-l-2 border-aurora-2 p-5">
-              <div className="flex items-center gap-2 text-sm font-medium">
-                <Sparkles size={16} className="text-aurora-2" />
-                Currently building
-              </div>
-              {/* <div className="mt-1.5 font-semibold">{profile.currentlyBuilding.title}</div> */}
-              {/* <p className="mt-1 text-sm text-muted-foreground">
-                {profile.currentlyBuilding.description}
-              </p> */}
-            </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <a

@@ -16,7 +16,7 @@ export const projects: Project[] = [
     liveUrl: '#',
     codeUrl: '#',
     featured: true,
-    accent: ['#2dd4bf', '#8b5cf6'],
+    accent: ['#22d3ee', '#8b5cf6'],
   },
   {
     title: 'Tempo Analytics',
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     liveUrl: '#',
     codeUrl: '#',
     featured: true,
-    accent: ['#8b5cf6', '#ec4899'],
+    accent: ['#8b5cf6', '#f43f5e'],
   },
   {
     title: 'Glyph',
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     liveUrl: '#',
     codeUrl: '#',
     featured: true,
-    accent: ['#ec4899', '#2dd4bf'],
+    accent: ['#f43f5e', '#22d3ee'],
   },
   {
     title: 'Driftwood',
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     liveUrl: '#',
     codeUrl: '#',
     featured: false,
-    accent: ['#2dd4bf', '#8b5cf6'],
+    accent: ['#22d3ee', '#8b5cf6'],
   },
   {
     title: 'Pulse CLI',
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     liveUrl: '#',
     codeUrl: '#',
     featured: false,
-    accent: ['#8b5cf6', '#ec4899'],
+    accent: ['#8b5cf6', '#f43f5e'],
   },
   {
     title: 'Atlas Docs',
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     liveUrl: '#',
     codeUrl: '#',
     featured: false,
-    accent: ['#ec4899', '#2dd4bf'],
+    accent: ['#f43f5e', '#22d3ee'],
   },
 ]
 

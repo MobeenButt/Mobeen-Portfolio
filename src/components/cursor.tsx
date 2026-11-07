@@ -9,7 +9,9 @@ import { usePrefersReducedMotion } from '@/hooks/use-prefers-reduced-motion'
  */
 export function Cursor() {
   const reduced = usePrefersReducedMotion()
-  const [enabled, setEnabled] = useState(false)
+  const [enabled] = useState(
+    () => typeof window !== 'undefined' && !window.matchMedia('(pointer: coarse)').matches,
+  )
   const [hovering, setHovering] = useState(false)
   const [visible, setVisible] = useState(false)
 
@@ -20,9 +22,8 @@ export function Cursor() {
 
   useEffect(() => {
     if (reduced) return
-    if (window.matchMedia('(pointer: coarse)').matches) return
+    if (!enabled) return
 
-    setEnabled(true)
     document.documentElement.classList.add('cursor-hidden')
 
     const move = (e: MouseEvent) => {
@@ -44,7 +45,7 @@ export function Cursor() {
       document.removeEventListener('mouseleave', leave)
       document.documentElement.classList.remove('cursor-hidden')
     }
-  }, [reduced, x, y])
+  }, [enabled, reduced, x, y])
 
   if (!enabled) return null
 

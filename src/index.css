@@ -5,23 +5,23 @@
 @layer base {
   :root {
     /* Dark theme is the default (also set on <html> by index.html). */
-    --bg: #0a0a12;
-    --bg-soft: #0e0e1a;
-    --text: #f5f5f7;
-    --text-muted: #a1a1aa;
-    --text-faint: #71717a;
-    --surface: rgba(255, 255, 255, 0.045);
-    --surface-strong: rgba(255, 255, 255, 0.07);
-    --border: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.14);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --shadow-color: rgba(0, 0, 0, 0.55);
+    --bg: #030305;
+    --bg-soft: #08080d;
+    --text: #f8f7ff;
+    --text-muted: #aaa8bd;
+    --text-faint: #716f84;
+    --surface: rgba(18, 17, 29, 0.68);
+    --surface-strong: rgba(27, 24, 43, 0.82);
+    --border: rgba(196, 181, 253, 0.13);
+    --border-strong: rgba(221, 214, 254, 0.24);
+    --glass-border: rgba(167, 139, 250, 0.24);
+    --shadow-color: rgba(0, 0, 0, 0.72);
 
-    /* Aurora triad — identical brand gradient in both themes. */
-    --aurora-1: #2dd4bf;
+    /* Electric accents against the black glass surfaces. */
+    --aurora-1: #22d3ee;
     --aurora-2: #8b5cf6;
-    --aurora-3: #ec4899;
-    --aurora-opacity: 0.55;
+    --aurora-3: #f43f5e;
+    --aurora-opacity: 0.42;
 
     --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
     --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
@@ -67,6 +67,13 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
+  }
+
+  /* Let the browser skip layout and paint work for distant sections. */
+  main > section,
+  footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
   }
 
   h1, h2, h3, h4 {
@@ -233,5 +240,13 @@
   }
   [cmdk-item][data-selected='true'] {
     background: var(--surface-strong);
+  }
+}
+
+@media (max-width: 640px) {
+  .glass,
+  .glass-strong {
+    backdrop-filter: blur(10px) saturate(125%);
+    -webkit-backdrop-filter: blur(10px) saturate(125%);
   }
 }

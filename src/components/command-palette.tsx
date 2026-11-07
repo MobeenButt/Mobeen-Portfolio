@@ -9,8 +9,8 @@ import { scrollToSection } from '@/lib/smooth-scroll'
  * Command palette opened with Cmd/Ctrl+K. Lets visitors jump to any section or
  * open a social link. Closes on Escape or selecting an item.
  */
-export function CommandPalette() {
-  const [open, setOpen] = useState(false)
+export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { AuroraBackground } from '@/components/aurora-background'
 import { BackToTop } from '@/components/back-to-top'
-import { CommandPalette } from '@/components/command-palette'
 import { Cursor } from '@/components/cursor'
 import { Header } from '@/components/Header'
 import { ScrollProgress } from '@/components/scroll-progress'
@@ -16,6 +15,29 @@ import { Skills } from '@/components/sections/Skills'
 import { Stats } from '@/components/sections/Stats'
 import { initSmoothScroll } from '@/lib/smooth-scroll'
 import { ThemeProvider } from '@/providers/theme-provider'
+
+const LazyCommandPalette = lazy(() =>
+  import('@/components/command-palette').then((module) => ({
+    default: module.CommandPalette,
+  })),
+)
+
+function DeferredCommandPalette() {
+  const [requested, setRequested] = useState(false)
+
+  useEffect(() => {
+    const onOpen = () => setRequested(true)
+    window.addEventListener('open-command-palette', onOpen)
+    return () => window.removeEventListener('open-command-palette', onOpen)
+  }, [])
+
+  if (!requested) return null
+  return (
+    <Suspense fallback={null}>
+      <LazyCommandPalette initialOpen />
+    </Suspense>
+  )
+}
 
 export default function App() {
   useEffect(() => initSmoothScroll(), [])
@@ -38,7 +60,7 @@ export default function App() {
       </main>
       <Footer />
       <BackToTop />
-      <CommandPalette />
+      <DeferredCommandPalette />
     </ThemeProvider>
   )
 }

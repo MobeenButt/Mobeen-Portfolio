@@ -11,7 +11,7 @@ import { Badge } from '../ui/badge'
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
   const [expanded, setExpanded] = useState(false)
-  const [from, to] = project.accent ?? ['#2dd4bf', '#8b5cf6']
+  const [from, to] = project.accent ?? ['#22d3ee', '#8b5cf6']
 
   return (
     <motion.div
